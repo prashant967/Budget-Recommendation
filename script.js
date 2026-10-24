@@ -9,7 +9,7 @@
    ===================================================== */
 
 // ---------- 1. Settings ----------
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://budget-recommendation-model.onrender.com";
 
 const CONNECTION_ERROR_MESSAGE =
     "Unable to connect to SmartSpend AI. Please make sure the backend server is running.";
