@@ -1,0 +1,39 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ---------- Virtual environments ----------
+venv/
+.venv/
+env/
+ENV/
+
+# ---------- Jupyter Notebook ----------
+.ipynb_checkpoints/
+
+# ---------- Secrets / environment files ----------
+.env
+.env.*
+
+# ---------- Editors / IDEs ----------
+.vscode/
+.idea/
+
+# ---------- OS files ----------
+.DS_Store
+Thumbs.db
+
+# ---------- Logs ----------
+*.log
+
+# ---------- Generated files (OPTIONAL) ----------
+# Both files below are re-created by running the notebook.
+# The CSV is large and not needed by the backend, so it is ignored.
+smartspend_synthetic_data.csv
+
+# The FastAPI backend NEEDS the trained model to run, so it is kept in Git.
+# If you prefer not to commit it (e.g. it becomes large), remove the "#"
+# below and share the model another way.
+# smartspend_budget_model.pkl

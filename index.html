@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSpend AI – Budget Dashboard</title>
+
+    <!-- 1. Connect the CSS file (all the styling) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Dark overlay shown behind the sidebar on mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">₹</span>
+            <span class="brand-name">SmartSpend AI</span>
+        </div>
+
+        <!-- data-target = id of the section to scroll to -->
+        <nav class="sidebar-nav">
+            <a href="#section-dashboard" class="nav-link active" data-target="section-dashboard">
+                <span class="nav-icon">▦</span> Dashboard
+            </a>
+            <a href="#section-budget" class="nav-link" data-target="section-budget">
+                <span class="nav-icon">◎</span> Budget Recommendation
+            </a>
+            <a href="#section-spending" class="nav-link" data-target="section-spending">
+                <span class="nav-icon">◔</span> Spending Analysis
+            </a>
+            <a href="#section-insights" class="nav-link" data-target="section-insights">
+                <span class="nav-icon">✦</span> Smart Insights
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Academic prototype<br>
+            Trained on synthetic data.<br>
+            Not financial advice.
+        </div>
+    </aside>
+
+    <!-- ================= MAIN AREA ================= -->
+    <div class="main">
+
+        <!-- ---------- Header ---------- -->
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+
+            <div class="topbar-title">
+                <h1>SmartSpend AI</h1>
+                <p>AI-Powered Expense &amp; Budget Management</p>
+            </div>
+
+            <div class="topbar-right">
+                <span class="pill">Budget Dashboard</span>
+                <span class="avatar" title="Profile">👤</span>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- ============ FINANCIAL INPUT FORM ============ -->
+            <section id="section-dashboard" class="card">
+                <h2 class="card-title">Enter Your Financial Details</h2>
+
+                <!-- novalidate: we show our own styled error messages (see script.js) -->
+                <form id="financialForm" novalidate>
+
+                    <h3 class="form-heading">Personal Information</h3>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="income">Monthly Income</label>
+                            <input type="number" id="income" min="0" step="any" placeholder="₹ 50,000">
+                        </div>
+
+                        <div class="field">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" min="1" max="120" step="1" placeholder="e.g. 24">
+                        </div>
+
+                        <div class="field">
+                            <label for="dependents">Dependents</label>
+                            <input type="number" id="dependents" min="0" step="1" placeholder="e.g. 1">
+                        </div>
+
+                        <div class="field">
+                            <label for="occupation">Occupation</label>
+                            <select id="occupation">
+                                <option value="" selected disabled>Select occupation</option>
+                                <option value="Student">Student</option>
+                                <option value="Salaried">Salaried</option>
+                                <option value="Self-Employed">Self-Employed</option>
+                                <option value="Freelancer">Freelancer</option>
+                                <option value="Business">Business</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="field field-wide">
+                            <label for="cityTier">City Tier</label>
+                            <!-- Text is user-friendly; the value is what FastAPI expects -->
+                            <select id="cityTier">
+                                <option value="" selected disabled>Select city tier</option>
+                                <option value="Tier_1">Tier 1 — High-cost / metropolitan city</option>
+                                <option value="Tier_2">Tier 2 — Medium-cost city</option>
+                                <option value="Tier_3">Tier 3 — Lower-cost / smaller city</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 class="form-heading">Monthly Expenses</h3>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="rent">Rent</label>
+                            <input type="number" id="rent" min="0" step="any" placeholder="₹ 10,000">
+                        </div>
+                        <div class="field">
+                            <label for="groceries">Groceries</label>
+                            <input type="number" id="groceries" min="0" step="any" placeholder="₹ 5,000">
+                        </div>
+                        <div class="field">
+                            <label for="transport">Transport</label>
+                            <input type="number" id="transport" min="0" step="any" placeholder="₹ 2,500">
+                        </div>
+                        <div class="field">
+                            <label for="eatingOut">Eating Out</label>
+                            <input type="number" id="eatingOut" min="0" step="any" placeholder="₹ 2,000">
+                        </div>
+                        <div class="field">
+                            <label for="entertainment">Entertainment</label>
+                            <input type="number" id="entertainment" min="0" step="any" placeholder="₹ 1,500">
+                        </div>
+                        <div class="field">
+                            <label for="utilities">Utilities</label>
+                            <input type="number" id="utilities" min="0" step="any" placeholder="₹ 2,500">
+                        </div>
+                        <div class="field">
+                            <label for="healthcare">Healthcare</label>
+                            <input type="number" id="healthcare" min="0" step="any" placeholder="₹ 1,000">
+                        </div>
+                        <div class="field">
+                            <label for="education">Education</label>
+                            <input type="number" id="education" min="0" step="any" placeholder="₹ 1,000">
+                        </div>
+                        <div class="field">
+                            <label for="miscellaneous">Miscellaneous</label>
+                            <input type="number" id="miscellaneous" min="0" step="any" placeholder="₹ 1,500">
+                        </div>
+                    </div>
+                    <p class="hint">Leave an expense empty if it does not apply — it will be counted as ₹0.</p>
+
+                    <!-- Styled error message area (filled by showError in script.js) -->
+                    <div class="error-box" id="errorBox" role="alert" hidden></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="predictBtn">
+                            <span class="spinner" id="spinner" hidden></span>
+                            <span id="btnText">Generate Smart Budget</span>
+                        </button>
+                        <button type="button" class="btn-ghost" id="sampleBtn">Fill sample values</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- ============ EMPTY STATE (before any prediction) ============ -->
+            <section id="emptyState" class="card empty-state">
+                <div class="empty-icon">📈</div>
+                <p>Your financial analysis will appear here after you generate a budget recommendation.</p>
+            </section>
+
+            <!-- ============ RESULTS (hidden until the API responds) ============ -->
+            <div id="results" hidden>
+
+                <!-- ---------- Summary cards ---------- -->
+                <h2 class="section-heading">Financial Overview</h2>
+                <section class="summary-grid">
+                    <div class="card stat-card">
+                        <span class="stat-label">Monthly Income</span>
+                        <span class="stat-value" id="cardIncome">–</span>
+                        <span class="stat-sub">Money coming in</span>
+                    </div>
+                    <div class="card stat-card">
+                        <span class="stat-label">Total Expenses</span>
+                        <span class="stat-value" id="cardExpenses">–</span>
+                        <span class="stat-sub">Money going out</span>
+                    </div>
+                    <div class="card stat-card">
+                        <span class="stat-label">Monthly Savings</span>
+                        <span class="stat-value" id="cardSavings">–</span>
+                        <span class="stat-sub" id="cardSavingsPercent">–</span>
+                    </div>
+                    <div class="card stat-card stat-ai">
+                        <span class="stat-label">AI Recommended Budget</span>
+                        <span class="stat-value" id="cardBudget">–</span>
+                        <span class="stat-sub">Predicted by XGBoost model</span>
+                    </div>
+                </section>
+
+                <!-- ---------- Budget recommendation + Financial health ---------- -->
+                <div class="two-col" id="section-budget">
+                    <section class="card">
+                        <h2 class="card-title">AI Budget Recommendation</h2>
+
+                        <div class="budget-top">
+                            <div>
+                                <span class="stat-label">Recommended Monthly Budget</span>
+                                <div class="big-number ai-text" id="budgetRecommended">–</div>
+                            </div>
+                            <span class="status-badge" id="budgetStatus">–</span>
+                        </div>
+
+                        <div class="budget-details">
+                            <div>
+                                <span class="stat-label">Actual Monthly Spending</span>
+                                <div class="mid-number" id="budgetActual">–</div>
+                            </div>
+                            <div>
+                                <span class="stat-label" id="budgetDifferenceLabel">Remaining</span>
+                                <div class="mid-number" id="budgetDifference">–</div>
+                            </div>
+                            <div>
+                                <span class="stat-label">Budget Used</span>
+                                <div class="mid-number" id="budgetPercent">–</div>
+                            </div>
+                        </div>
+
+                        <div class="progress-info">
+                            <span id="progressText">–</span>
+                            <span id="progressPercentText">–</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </section>
+
+                    <section class="card health-card">
+                        <h2 class="card-title">Financial Health</h2>
+                        <div class="health-ring" id="healthRing">
+                            <div class="health-inner">
+                                <span class="health-score" id="healthScore">–</span>
+                                <span class="health-max">/ 100</span>
+                            </div>
+                        </div>
+                        <div class="health-status" id="healthStatus">–</div>
+                        <p class="health-description" id="healthDescription">–</p>
+                    </section>
+                </div>
+
+                <!-- ---------- Expense breakdown ---------- -->
+                <section class="card" id="section-spending">
+                    <h2 class="card-title">Expense Breakdown</h2>
+                    <div class="breakdown-layout">
+                        <div class="chart-box chart-doughnut">
+                            <canvas id="expenseChart"></canvas>
+                        </div>
+                        <div class="breakdown-list" id="breakdownList"></div>
+                    </div>
+                </section>
+
+                <!-- ---------- Bar chart ---------- -->
+                <section class="card">
+                    <h2 class="card-title">Monthly Financial Overview</h2>
+                    <div class="chart-box chart-bar">
+                        <canvas id="overviewChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- ---------- Smart insights ---------- -->
+                <section class="card" id="section-insights">
+                    <h2 class="card-title">Smart Insights</h2>
+                    <div class="insights-grid" id="insightsList"></div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- 2. Chart.js library (draws the charts) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- 3. Connect the JavaScript file (all the behaviour). Must come last. -->
+    <script src="script.js"></script>
+</body>
+</html>
